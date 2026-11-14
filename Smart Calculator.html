@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      display: flex;
+      justify-content: center;
+      padding: 30px 12px;
+    }
+    .calculator {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 4px 15px #0002;
+    }
+    h2 { text-align: center; }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      font-size: 16px;
+      border-radius: 7px;
+    }
+    input, select { border: 1px solid #bbb; }
+    button {
+      background: #2457c5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 7px;
+      text-align: center;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Smart Calculator</h2>
+
+    <input type="number" id="num1" placeholder="Enter first number">
+
+    <select id="operation">
+      <option value="add">Addition (+)</option>
+      <option value="sub">Subtraction (-)</option>
+      <option value="mul">Multiplication (×)</option>
+      <option value="div">Division (÷)</option>
+      <option value="mod">Modulus (%)</option>
+      <option value="pow">Power</option>
+      <option value="sqrt">Square Root</option>
+    </select>
+
+    <input type="number" id="num2" placeholder="Enter second number">
+
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="clearAll()">Clear</button>
+
+    <p id="result">Your result will appear here.</p>
+  </div>
+
+  <script>
+    function calculate() {
+      let a = Number(document.getElementById("num1").value);
+      let b = Number(document.getElementById("num2").value);
+      let op = document.getElementById("operation").value;
+      let result;
+
+      if (document.getElementById("num1").value === "") {
+        document.getElementById("result").innerText =
+          "Please enter the first number.";
+        return;
+      }
+
+      if (op !== "sqrt" &&
+          document.getElementById("num2").value === "") {
+        document.getElementById("result").innerText =
+          "Please enter the second number.";
+        return;
+      }
+
+      switch (op) {
+        case "add": result = a + b; break;
+        case "sub": result = a - b; break;
+        case "mul": result = a * b; break;
+        case "div":
+          if (b === 0) result = "Cannot divide by zero";
+          else result = a / b;
+          break;
+        case "mod":
+          if (b === 0) result = "Cannot use zero";
+          else result = a % b;
+          break;
+        case "pow": result = Math.pow(a, b); break;
+        case "sqrt":
+          if (a < 0) result = "Invalid square root";
+          else result = Math.sqrt(a);
+          break;
+      }
+
+      document.getElementById("result").innerText =
+        "Result: " + result;
+    }
+
+    function clearAll() {
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+      document.getElementById("result").innerText =
+        "Your result will appear here.";
+    }
+  </script>
+</body>
+</html>
